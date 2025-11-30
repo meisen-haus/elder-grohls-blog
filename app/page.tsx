@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="page-title">Latest Posts</h1>
+      <h1 className="page-title">The Elder Grohls</h1>
       <div className="post-list">
         {posts.map((post) => (
           <article key={post.id} className="post-card">

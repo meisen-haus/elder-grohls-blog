@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
   }
 
   return {
-    title: `${post.title} | Simple Blog`,
+    title: `${post.title} | The Elder Ghrols`,
     description: post.excerpt,
   }
 }
