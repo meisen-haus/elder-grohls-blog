@@ -624,10 +624,26 @@ body::before {
   background: linear-gradient(to bottom, var(--gold), var(--gold-light));
 }
 
+.logo {
+	width: 60px;
+	height: 60px;
+	float: right;
+  border-radius: 50%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+@media (min-width: 600px) {
+  .logo {
+    width: 75px;
+    height: 75px;
+  }
+}
+
 @media (max-width: 768px) {
   .header {
     padding: 1rem;
-    flex-direction: column;
+    flex-direction: row;
     gap: 1rem;
   }
   
