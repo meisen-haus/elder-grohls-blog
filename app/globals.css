@@ -166,6 +166,10 @@ body {
   );
 } */
 
+#footnote-label {
+  visibility: hidden;
+}
+
 .page-title {
   font-size: 2.75rem;
   font-weight: 700;
@@ -184,6 +188,11 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+}
+
+.post-list a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .post-card {
@@ -464,7 +473,7 @@ body {
 .markdown-content blockquote {
   border-left: 4px solid var(--gold);
   background: rgba(42, 34, 24, 0.4);
-  padding: 1rem 1.5rem;
+  padding: 2rem 1.5rem;
   margin-left: 0;
   margin-bottom: 1.5rem;
   font-style: italic;
@@ -478,6 +487,16 @@ body {
   position: absolute;
   top: -0.5rem;
   left: 0.5rem;
+  font-size: 2rem;
+  color: var(--gold);
+  opacity: 0.5;
+}
+
+.markdown-content blockquote::after { 
+  content: '❞';
+  position: absolute;
+  bottom: -0.5rem;
+  right: 0.5rem;
   font-size: 2rem;
   color: var(--gold);
   opacity: 0.5;
