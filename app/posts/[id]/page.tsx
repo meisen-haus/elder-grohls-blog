@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { getPostById, getAllPosts } from '@/lib/posts'
+import { convertDatesToNerd } from '@/lib/era-dates'
 
 export async function generateStaticParams() {
   const posts = getAllPosts()
@@ -27,11 +28,11 @@ export default function PostPage({ params }: { params: { id: string } }) {
         <header className="post-header">
           <h1 className="post-title">{post.title}</h1>
           <div className="post-meta">
-            <span>{new Date(post.date).toLocaleDateString('en-US', { 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
-            })}</span>
+          <span title={new Date(post.date).toLocaleDateString('en-US', { 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                })}>{convertDatesToNerd(new Date(post.date))}</span>
             <span>•</span>
             <span>{post.author}</span>
           </div>
