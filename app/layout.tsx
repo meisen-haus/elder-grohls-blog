@@ -15,9 +15,9 @@ export const metadata: Metadata = {
     siteName: "The Elder Ghrols",
     images: [
       {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
+        url: "/og.jpg",
+        width:1024,
+        height: 536,
       },
     ],
     locale: "en_US",
@@ -66,7 +66,7 @@ export default function RootLayout({
             {children}
           </main>
           <footer className="footer">
-            <p>The Elder Ghrols - Fresh Pots since 4E 2025</p>
+            <p>The Elder Ghrols - Fresh Pots since 3E 450</p>
           </footer>
         </div>
       </body>
