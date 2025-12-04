@@ -7,7 +7,28 @@ import logo from "@/public/logo.png";
 
 export const metadata: Metadata = {
   title: 'The Elder Ghrols',
-  description: 'Fresh Pots since 4E 2025',
+  description: 'Fresh Pots since 3E 450',
+  openGraph: {
+    title: "The Elder Ghrols",
+    description: "Fresh Pots since 3E 450",
+    url: "https://elder-ghrols-blog.vercel.app/",
+    siteName: "The Elder Ghrols",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Elder Ghrols",
+    description: "Fresh Pots since 3E 450",
+    images: ["/og-image.png"],
+  },
   icons: {
     icon: [
       { url: "/favicon-32x32.png", sizes: "32x32" },
