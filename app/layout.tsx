@@ -3,14 +3,22 @@ import Link from 'next/link'
 import './globals.css'
 import Image from "next/image";
 import logo from "@/public/logo.png";
+import { convertDatesToNerd } from '@/lib/era-dates'
 
+const dateObj = new Date()
+const realDate = dateObj.toLocaleDateString('en-US', { 
+  year: 'numeric', 
+  month: 'long', 
+  day: 'numeric' 
+})
+const freshPotsSince = convertDatesToNerd(dateObj)
 
 export const metadata: Metadata = {
   title: 'The Elder Ghrols',
-  description: 'Fresh Pots since 3E 450',
+  description: `Fresh Pots brewed ${freshPotsSince}`,
   openGraph: {
     title: "The Elder Ghrols",
-    description: "Fresh Pots since 3E 450",
+    description: `Fresh Pots brewed ${freshPotsSince}`,
     url: "https://elder-ghrols-blog.vercel.app/",
     siteName: "The Elder Ghrols",
     images: [
@@ -26,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "The Elder Ghrols",
-    description: "Fresh Pots since 3E 450",
+    description: `Fresh Pots brewed ${freshPotsSince}`,
     images: ["/og-image.png"],
   },
   icons: {
@@ -52,6 +60,7 @@ export default function RootLayout({
               <Image
                 src={logo}
                 alt="We're watching you scum!"
+                title="We're watching you scum!"
                 className="logo"
                 height={800}
                 width={800}
@@ -66,7 +75,9 @@ export default function RootLayout({
             {children}
           </main>
           <footer className="footer">
-            <p>The Elder Ghrols - Fresh Pots since 3E 450</p>
+            <p>The Elder Ghrols - Fresh Pots brewed
+              <span title={`${realDate}`}> {freshPotsSince}</span>
+            </p>
           </footer>
         </div>
       </body>
