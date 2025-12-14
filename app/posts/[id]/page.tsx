@@ -37,7 +37,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
                   month: 'long', 
                   day: 'numeric' 
                 })}>{convertDatesToNerd(new Date(post.date))}</span>
-            <span>•</span>
+            <span className="post-meta-separator">•</span>
             <span>{post.author}</span>
           </div>
         </header>

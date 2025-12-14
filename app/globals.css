@@ -167,23 +167,19 @@ body {
 } */
 
 #footnote-label {
-  visibility: hidden;
-  position: relative;
-  font-size: 1.5rem;
+  font-size: 0; /* Hide original text */
   font-weight: 600;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
   color: var(--text-gold);
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  padding-left: 0;
+  border-left: none;
 }
 
-
 #footnote-label::after {
-  content: "Notes Of Little Courage Or Consequence:"; /* Injected content */
-  visibility: visible;
-  position: absolute;
-  left: 0;
-  top: 0;
+  content: "Notes Of Little Courage Or Consequence";
+  font-size: 1.5rem; /* Restore font size for injected content */
 }
 
 
@@ -820,5 +816,15 @@ body::before {
   .rating-btn {
     padding: 0.6rem 1rem;
   }
+
+  .post-meta {
+    flex-direction: column;
+    line-height: 0.5;
+  }
+
+  .post-meta-separator {
+    display: none;
+  }
+
 }
 
