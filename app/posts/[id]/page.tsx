@@ -4,6 +4,8 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { getPostById, getAllPosts } from '@/lib/posts'
 import { convertDatesToNerd } from '@/lib/era-dates'
+import { getRatingData } from '@/app/actions/ratings'
+import PostRating from '@/app/components/PostRating'
 
 export async function generateStaticParams() {
   const posts = getAllPosts()
@@ -12,12 +14,14 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function PostPage({ params }: { params: { id: string } }) {
+export default async function PostPage({ params }: { params: { id: string } }) {
   const post = getPostById(params.id)
 
   if (!post) {
     notFound()
   }
+
+  const { likeCount, userRating } = await getRatingData(params.id)
 
   return (
     <>
@@ -42,6 +46,11 @@ export default function PostPage({ params }: { params: { id: string } }) {
             {post.content}
           </ReactMarkdown>
         </div>
+        <PostRating 
+          postId={params.id}
+          initialLikeCount={likeCount}
+          initialUserRating={userRating}
+        />
       </article>
     </>
   )
@@ -61,4 +70,3 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     description: post.excerpt,
   }
 }
-
