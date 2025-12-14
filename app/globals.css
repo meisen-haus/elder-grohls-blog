@@ -168,7 +168,24 @@ body {
 
 #footnote-label {
   visibility: hidden;
+  position: relative;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-gold);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
+
+
+#footnote-label::after {
+  content: "Notes Of Little Courage Or Consequence:"; /* Injected content */
+  visibility: visible;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
 
 .page-title {
   font-size: 2.75rem;
@@ -659,6 +676,104 @@ body::before {
   }
 }
 
+/* Post Rating Component */
+.post-rating {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 3px double var(--border-ornate);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rating-buttons {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.rating-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  min-width: 4.5rem;
+  background: rgba(42, 34, 24, 0.6);
+  border: 2px solid var(--gold-dark);
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: Georgia, serif;
+  font-size: 1rem;
+  box-shadow: 
+    0 2px 6px var(--shadow-dark),
+    inset 0 1px 0 rgba(212, 175, 55, 0.15);
+  min-width:6em;
+}
+
+.rating-btn:hover:not(:disabled) {
+  background: rgba(42, 34, 24, 0.8);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 12px rgba(212, 175, 55, 0.25),
+    inset 0 1px 0 rgba(212, 175, 55, 0.25);
+}
+
+.rating-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.rating-btn.active {
+  background: linear-gradient(to bottom, var(--gold-dark) 0%, var(--gold) 100%);
+  border-color: var(--gold-light);
+  color: var(--bg-dark);
+  box-shadow: 
+    0 0 12px rgba(212, 175, 55, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.rating-btn.disabled-other {
+  opacity: 0.4;
+}
+
+.like-btn:hover:not(:disabled) {
+  color: var(--gold-light);
+}
+
+.dislike-btn:hover:not(:disabled) {
+  color: var(--text-dim);
+}
+
+.rating-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+.rating-count {
+  font-weight: 600;
+  color: var(--gold-light);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+.rating-btn.active .rating-count {
+  color: var(--bg-dark);
+  text-shadow: none;
+}
+
+.rating-message {
+  font-style: italic;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
 @media (max-width: 768px) {
   .header {
     padding: 1rem;
@@ -696,6 +811,14 @@ body::before {
   
   .markdown-content h2 {
     font-size: 1.5rem;
+  }
+
+  .rating-buttons {
+    gap: 1rem;
+  }
+
+  .rating-btn {
+    padding: 0.6rem 1rem;
   }
 }
 
