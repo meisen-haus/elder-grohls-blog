@@ -1,6 +1,6 @@
 ---
 title: "Wake up, we're here."
-date: "2025-11-30"
+date: "2025-11-30T00:00:00"
 author: "Nick Meisenheimer"
 excerpt: "Stand up... there you go. You were dreaming. What's your name?"
 ---
