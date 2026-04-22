@@ -3,6 +3,7 @@
 import { headers } from 'next/headers'
 import { createHash } from 'crypto'
 import { supabase } from '@/lib/supabase'
+import * as Sentry from '@sentry/nextjs'
 
 function hashIP(ip: string): string {
   return createHash('sha256').update(ip).digest('hex')
@@ -30,7 +31,7 @@ export async function getRatingData(postId: string): Promise<{
     .eq('rating', 1)
 
   if (countError) {
-    console.error('Error fetching like count:', countError)
+    Sentry.captureException(countError)
   }
 
   // Check if user has already rated this post
@@ -42,7 +43,7 @@ export async function getRatingData(postId: string): Promise<{
     .maybeSingle()
 
   if (userError) {
-    console.error('Error fetching user rating:', userError)
+    Sentry.captureException(userError)
   }
 
   return {
@@ -60,15 +61,19 @@ export async function submitRating(postId: string, rating: 0 | 1): Promise<{
   const hashedIp = await getHashedIP()
 
   // Check if user has already rated this post
-  const { data: existingRating } = await supabase
+  const { data: existingRating, error: existingError } = await supabase
     .from('ratings')
     .select('id')
     .eq('post_id', postId)
     .eq('hashed_ip', hashedIp)
     .maybeSingle()
 
+  if (existingError) {
+    Sentry.captureException(existingError)
+  }
+
   if (existingRating) {
-    // User has already rated - return current state
+    Sentry.logger.warn('Duplicate rating attempt', { post_id: postId })
     const data = await getRatingData(postId)
     return {
       success: false,
@@ -87,7 +92,8 @@ export async function submitRating(postId: string, rating: 0 | 1): Promise<{
     })
 
   if (insertError) {
-    console.error('Error inserting rating:', insertError)
+    Sentry.captureException(insertError)
+    Sentry.logger.error('Failed to insert rating', { post_id: postId, reason: insertError.message })
     const data = await getRatingData(postId)
     return {
       success: false,
@@ -95,6 +101,14 @@ export async function submitRating(postId: string, rating: 0 | 1): Promise<{
       error: 'Failed to submit rating',
     }
   }
+
+  const ratingType = rating === 1 ? 'like' : 'dislike'
+
+  Sentry.metrics.count('article.rating', 1, {
+    attributes: { type: ratingType, post_id: postId },
+  })
+
+  Sentry.logger.info('Rating submitted', { post_id: postId, type: ratingType })
 
   // Get updated counts
   const data = await getRatingData(postId)
